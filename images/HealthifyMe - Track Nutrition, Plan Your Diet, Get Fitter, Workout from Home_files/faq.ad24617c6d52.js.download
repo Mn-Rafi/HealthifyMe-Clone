@@ -1,0 +1,19 @@
+var accordionPanels = document.getElementsByClassName("faq-collapsible");
+var i;
+for (i = 0; i < accordionPanels.length; i++) {
+  accordionPanels[i].addEventListener("click", function () {
+    var targetElementId = this.getAttribute("data-target");
+    var targetElement = document.getElementById(targetElementId);
+    var arrow = this.getElementsByClassName("down-arrow")[0];
+    var isCollapsed = targetElement.getAttribute("data-collapsed") === "true";
+    if (isCollapsed) {
+      targetElement.style.height = targetElement.scrollHeight + "px";
+      arrow.style.transform = "rotate(-180deg)";
+      targetElement.setAttribute("data-collapsed", "false");
+    } else {
+      targetElement.style.height = null;
+      arrow.style.transform = null;
+      targetElement.setAttribute("data-collapsed", "true");
+    }
+  });
+}

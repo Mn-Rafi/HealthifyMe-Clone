@@ -1,0 +1,30 @@
+function logEvent(question_id, answer, callback) {
+  var URL = '/api/v1/hme_landing_page/save';
+  window.fetch(URL, {
+    method: 'POST',
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      question_id,
+      answer
+    })
+  })
+  .then(callback);
+}
+var links = [].slice.call(document.getElementsByClassName('log_event'));
+links.forEach(function(link) {
+  const onClick = link.onclick;
+  link.onclick = null;
+  link.addEventListener('click', function(event) {
+    event.preventDefault();
+    logEvent(link.id, 'clicked', function() {
+      if(link.href) {
+        window.location.href = link.href;
+      } else {
+        onClick();
+      }
+    });
+  })
+});
